@@ -20,7 +20,7 @@ namespace BitrixBackupDownloader
         private TextBox txtLog;
         private ProgressBar progressBar;
         private Label lblStatus;
-
+        private LinkLabel lnkGitHub;
         private CancellationTokenSource cts;
         private string configPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "last_folder.txt");
 
@@ -39,11 +39,14 @@ namespace BitrixBackupDownloader
 
         private void SetupUI()
         {
-            this.Text = "Скачивание бекапов 1С-Битрикс";
+            Version ver = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
+            this.Text = string.Format("Скачивание бекапов 1С-Битрикс (v{0}.{1})", ver.Major, ver.Minor);
             this.Size = new Size(580, 445);
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.StartPosition = FormStartPosition.CenterScreen;
+
+            this.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
 
             Label lblFolder = new Label();
             lblFolder.Text = "Основная папка для сохранения бекапов:";
@@ -119,6 +122,19 @@ namespace BitrixBackupDownloader
             lblStatus.Height = 22;
             lblStatus.Font = new Font(this.Font.FontFamily, 8.5f);
 
+            lblStatus.Width = 440; // Немного сужаем статус, чтобы не перекрывал ссылку
+
+            lnkGitHub = new LinkLabel();
+            lnkGitHub.Text = "Info";
+            lnkGitHub.Left = 455;
+            lnkGitHub.Top = 370;
+            lnkGitHub.Width = 95;
+            lnkGitHub.Height = 22;
+            lnkGitHub.TextAlign = ContentAlignment.TopRight;
+            lnkGitHub.Font = new Font(this.Font.FontFamily, 8.5f);
+            lnkGitHub.LinkClicked += (s, e) => Process.Start("https://github.com/asmirnov72reg/BitrixBackupDownloader");
+
+
             this.Controls.Add(lblFolder);
             this.Controls.Add(txtBaseFolder);
             this.Controls.Add(btnBrowse);
@@ -129,6 +145,7 @@ namespace BitrixBackupDownloader
             this.Controls.Add(txtLog);
             this.Controls.Add(progressBar);
             this.Controls.Add(lblStatus);
+            this.Controls.Add(lnkGitHub);
         }
 
         private void BtnCancel_Click(object sender, EventArgs e)
