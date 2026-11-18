@@ -1,0 +1,32 @@
+name: Build and Release EXE
+
+on:
+  push:
+    branches: [ "main", "master" ]
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Скачивание исходников
+        uses: actions/checkout@v4
+
+      - name: Настройка MSBuild
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Восстановление пакетов NuGet
+        run: nuget restore
+
+      - name: Сборка проекта в Release
+        run: msbuild /p:Configuration=Release
+
+      - name: Публикация EXE в Releases
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: latest
+          name: Актуальная сборка (Auto-Release)
+          files: '**/bin/Release/*.exe'
