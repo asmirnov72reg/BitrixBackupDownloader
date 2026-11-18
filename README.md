@@ -10,9 +10,7 @@
 
 Вы можете скачать актуальную скомпилированную версию программы напрямую из раздела авто-релизов:
 
-[![Скачать BitrixBackupDownloader.exe](https://img.shields.io/badge/Скачать_EXE-Актуальная_сборка-2ea44f?style=for-the-badge&logo=windows)](../../releases/latest/download/BitrixBackupDownloader.exe)
-
-*(Если по прямой ссылке файл не скачивается, перейдите в раздел [Releases](../../releases) и выберите последний доступный выпуск).*
+[![Download EXE](https://shields.io)](../../releases/latest/download/BitrixBackupDownloader.exe)
 
 ---
 
